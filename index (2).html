@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Management System</title>
+    <style>
+        :root {
+            --color-white: rgba(255, 255, 255, 1);
+            --color-cream-50: rgba(252, 252, 249, 1);
+            --color-cream-100: rgba(255, 255, 253, 1);
+            --color-gray-200: rgba(245, 245, 245, 1);
+            --color-gray-300: rgba(167, 169, 169, 1);
+            --color-slate-500: rgba(98, 108, 113, 1);
+            --color-brown-600: rgba(94, 82, 64, 1);
+            --color-charcoal-700: rgba(31, 33, 33, 1);
+            --color-charcoal-800: rgba(38, 40, 40, 1);
+            --color-slate-900: rgba(19, 52, 59, 1);
+            --color-teal-300: rgba(50, 184, 198, 1);
+            --color-teal-500: rgba(33, 128, 141, 1);
+            --color-teal-600: rgba(29, 116, 128, 1);
+            --color-teal-700: rgba(26, 104, 115, 1);
+            --color-red-400: rgba(255, 84, 89, 1);
+            --color-red-500: rgba(192, 21, 47, 1);
+            --color-brown-600-rgb: 94, 82, 64;
+            --color-teal-500-rgb: 33, 128, 141;
+            --color-background: var(--color-cream-50);
+            --color-surface: var(--color-cream-100);
+            --color-text: var(--color-slate-900);
+            --color-text-secondary: var(--color-slate-500);
+            --color-primary: var(--color-teal-500);
+            --color-primary-hover: var(--color-teal-600);
+            --color-primary-active: var(--color-teal-700);
+            --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+            --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+            --color-error: var(--color-red-500);
+            --color-success: var(--color-teal-500);
+            --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+            --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --radius-base: 8px;
+            --radius-lg: 12px;
+            --space-8: 8px;
+            --space-12: 12px;
+            --space-16: 16px;
+            --space-20: 20px;
+            --space-24: 24px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --color-gray-400-rgb: 119, 124, 124;
+                --color-teal-300-rgb: 50, 184, 198;
+                --color-background: var(--color-charcoal-700);
+                --color-surface: var(--color-charcoal-800);
+                --color-text: var(--color-gray-200);
+                --color-text-secondary: rgba(167, 169, 169, 0.7);
+                --color-primary: var(--color-teal-300);
+                --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+                --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+                --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+                --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+                --color-error: var(--color-red-400);
+                --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family-base);
+            background: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--space-20);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-24);
+            padding-bottom: var(--space-16);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: var(--space-8) var(--space-16);
+            border: none;
+            border-radius: var(--radius-base);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-secondary-hover);
+        }
+
+        .btn-danger {
+            background: var(--color-error);
+            color: white;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-24);
+            margin-bottom: var(--space-16);
+        }
+
+        .form-group {
+            margin-bottom: var(--space-16);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-8);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: var(--space-8) var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            background: var(--color-background);
+            color: var(--color-text);
+            font-size: 14px;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px var(--color-focus-ring);
+        }
+
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: var(--space-8);
+            margin-bottom: var(--space-16);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: var(--space-12);
+            border: 1px solid var(--color-border);
+            background: var(--color-secondary);
+            color: var(--color-text);
+            border-radius: var(--radius-base);
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .tab-btn.active {
+            background: var(--color-primary);
+            color: white;
+            border-color: var(--color-primary);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-16);
+            margin-top: var(--space-16);
+        }
+
+        .test-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-card-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-16);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .test-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .test-card h3 {
+            font-size: 16px;
+            margin-bottom: var(--space-8);
+        }
+
+        .test-card p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: var(--space-12);
+            margin-bottom: var(--space-20);
+        }
+
+        .iframe-container {
+            width: 100%;
+            height: calc(100vh - 200px);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            margin-top: var(--space-16);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: var(--radius-base);
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: var(--space-8);
+            margin-bottom: var(--space-20);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nav-tab {
+            padding: var(--space-12) var(--space-20);
+            border: none;
+            background: transparent;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-tab.active {
+            color: var(--color-primary);
+            border-bottom-color: var(--color-primary);
+        }
+
+        .settings-grid {
+            display: grid;
+            gap: var(--space-24);
+        }
+
+        .list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-12);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-base);
+            margin-bottom: var(--space-8);
+        }
+
+        .list-item-info {
+            flex: 1;
+        }
+
+        .list-item-info h4 {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .list-item-info p {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            background: var(--color-secondary);
+            color: var(--color-text);
+        }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .results-table th,
+        .results-table td {
+            padding: var(--space-12);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .results-table th {
+            font-weight: 600;
+            background: var(--color-secondary);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--color-surface);
+            border-radius: var(--radius-lg);
+            padding: var(--space-24);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-16);
+        }
+
+        .modal-header h2 {
+            font-size: 20px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        class LMS {
+            constructor() {
+                this.currentUser = null;
+                this.currentView = 'login';
+                this.currentTest = null;
+                this.init();
+            }
+
+            init() {
+                this.render();
+            }
+
+            // Authentication
+            login(username, password, role) {
+                const users = this.getUsers();
+                const user = users.find(u => u.username === username && u.password === password && u.role === role);
+                
+                if (user) {
+                    this.currentUser = user;
+                    this.currentView = role === 'teacher' ? 'teacher-dashboard' : 'student-dashboard';
+                    this.render();
+                    return true;
+                }
+                return false;
+            }
+
+            clearAllData() {
+                localStorage.removeItem('lms_users');
+                localStorage.removeItem('lms_classes');
+                localStorage.removeItem('lms_subjects');
+                localStorage.removeItem('lms_tests');
+                localStorage.removeItem('lms_results');
+            }
+
+            logout() {
+                this.currentUser = null;
+                this.currentView = 'login';
+                this.currentTest = null;
+                this.render();
+            }
+
+            getUsers() {
+                const users = localStorage.getItem('lms_users');
+                if (!users) {
+                    const defaultUsers = [
+                        { username: 'student', password: 'student', role: 'student' },
+                        { username: 'teacher', password: 'teacher', role: 'teacher' }
+                    ];
+                    localStorage.setItem('lms_users', JSON.stringify(defaultUsers));
+                    return defaultUsers;
+                }
+                return JSON.parse(users);
+            }
+
+            updateUserPassword(username, newPassword) {
+                const users = this.getUsers();
+                const userIndex = users.findIndex(u => u.username === username);
+                if (userIndex !== -1) {
+                    users[userIndex].password = newPassword;
+                    localStorage.setItem('lms_users', JSON.stringify(users));
+                    return true;
+                }
+                return false;
+            }
+
+            // Class Management
+            getClasses() {
+                const classes = localStorage.getItem('lms_classes');
+                return classes ? JSON.parse(classes) : [];
+            }
+
+            addClass(className) {
+                const classes = this.getClasses();
+                const newClass = {
+                    id: Date.now().toString(),
+                    name: className,
+                    created: new Date().toISOString()
+                };
+                classes.push(newClass);
+                localStorage.setItem('lms_classes', JSON.stringify(classes));
+                return newClass;
+            }
+
+            deleteClass(classId) {
+                const classes = this.getClasses();
+                const filtered = classes.filter(c => c.id !== classId);
+                localStorage.setItem('lms_classes', JSON.stringify(filtered));
+                
+                // Also delete subjects under this class
+                const subjects = this.getSubjects();
+                const filteredSubjects = subjects.filter(s => s.classId !== classId);
+                localStorage.setItem('lms_subjects', JSON.stringify(filteredSubjects));
+            }
+
+            // Subject Management
+            getSubjects() {
+                const subjects = localStorage.getItem('lms_subjects');
+                return subjects ? JSON.parse(subjects) : [];
+            }
+
+            addSubject(classId, name, description, icon) {
+                const subjects = this.getSubjects();
+                const newSubject = {
+                    id: Date.now().toString(),
+                    classId,
+                    name,
+                    description,
+                    icon,
+                    created: new Date().toISOString()
+                };
+                subjects.push(newSubject);
+                localStorage.setItem('lms_subjects', JSON.stringify(subjects));
+                return newSubject;
+            }
+
+            deleteSubject(subjectId) {
+                const subjects = this.getSubjects();
+                const filtered = subjects.filter(s => s.id !== subjectId);
+                localStorage.setItem('lms_subjects', JSON.stringify(filtered));
+                
+                // Also delete tests under this subject
+                const tests = this.getTests();
+                const filteredTests = tests.filter(t => t.subjectId !== subjectId);
+                localStorage.setItem('lms_tests', JSON.stringify(filteredTests));
+            }
+
+            // Test Management
+            getTests() {
+                const tests = localStorage.getItem('lms_tests');
+                return tests ? JSON.parse(tests) : [];
+            }
+
+            addTest(subjectId, name, link) {
+                const tests = this.getTests();
+                const newTest = {
+                    id: Date.now().toString(),
+                    subjectId,
+                    name,
+                    link,
+                    created: new Date().toISOString()
+                };
+                tests.push(newTest);
+                localStorage.setItem('lms_tests', JSON.stringify(tests));
+                return newTest;
+            }
+
+            deleteTest(testId) {
+                const tests = this.getTests();
+                const filtered = tests.filter(t => t.id !== testId);
+                localStorage.setItem('lms_tests', JSON.stringify(filtered));
+            }
+
+            // Results Management
+            getResults() {
+                const results = localStorage.getItem('lms_results');
+                return results ? JSON.parse(results) : [];
+            }
+
+            saveResult(testId, score, totalQuestions) {
+                const results = this.getResults();
+                const newResult = {
+                    id: Date.now().toString(),
+                    username: this.currentUser.username,
+                    testId,
+                    score,
+                    totalQuestions,
+                    date: new Date().toISOString()
+                };
+                results.push(newResult);
+                localStorage.setItem('lms_results', JSON.stringify(results));
+                return newResult;
+            }
+
+            // Rendering Methods
+            render() {
+                const app = document.getElementById('app');
+                
+                if (this.currentView === 'login') {
+                    app.innerHTML = this.renderLogin();
+                    this.attachLoginEvents();
+                } else if (this.currentView === 'teacher-dashboard') {
+                    app.innerHTML = this.renderTeacherDashboard();
+                    this.attachTeacherEvents();
+                } else if (this.currentView === 'student-dashboard') {
+                    app.innerHTML = this.renderStudentDashboard();
+                    this.attachStudentEvents();
+                } else if (this.currentView === 'take-test') {
+                    app.innerHTML = this.renderTestView();
+                    this.attachTestEvents();
+                }
+            }
+
+            renderLogin() {
+                return `
+                    <div class="login-container">
+                        <div class="card">
+                            <h1 style="text-align: center; margin-bottom: 24px;">Learning Management System</h1>
+                            <div class="tab-buttons">
+                                <button class="tab-btn active" data-role="student">Student Login</button>
+                                <button class="tab-btn" data-role="teacher">Teacher Login</button>
+                            </div>
+                            <form id="loginForm">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" class="form-control" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                                <div id="loginError" style="color: var(--color-error); margin-top: 12px; display: none;"></div>
+                            </form>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTeacherDashboard() {
+                return `
+                    <div class="container">
+                        <div class="header">
+                            <h1>Teacher Dashboard</h1>
+                            <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                        </div>
+                        <div class="nav-tabs">
+                            <button class="nav-tab active" data-tab="settings">Settings</button>
+                            <button class="nav-tab" data-tab="classes">Classes</button>
+                            <button class="nav-tab" data-tab="subjects">Subjects</button>
+                            <button class="nav-tab" data-tab="tests">Tests</button>
+                        </div>
+                        <div id="tabContent"></div>
+                    </div>
+                `;
+            }
+
+            renderStudentDashboard() {
+                const tests = this.getTests();
+                const subjects = this.getSubjects();
+                const classes = this.getClasses();
+                const results = this.getResults().filter(r => r.username === this.currentUser.username);
+
+                return `
+                    <div class="container">
+                        <div class="header">
+                            <h1>Student Dashboard</h1>
+                            <button class="btn btn-secondary" id="logoutBtn">Logout</button>
+                        </div>
+                        <div class="nav-tabs">
+                            <button class="nav-tab active" data-tab="tests">Available Tests</button>
+                            <button class="nav-tab" data-tab="results">My Results</button>
+                            <button class="nav-tab" data-tab="settings">Settings</button>
+                        </div>
+                        <div id="tabContent"></div>
+                    </div>
+                `;
+            }
+
+            renderTestView() {
+                const test = this.getTests().find(t => t.id === this.currentTest);
+                if (!test) return '<p>Test not found</p>';
+
+                return `
+                    <div class="container">
+                        <div class="header">
+                            <h1>${test.name}</h1>
+                            <div>
+                                <button class="btn btn-primary" id="submitTestBtn">Submit Test</button>
+                                <button class="btn btn-secondary" id="backBtn">Back</button>
+                            </div>
+                        </div>
+                        <div class="iframe-container">
+                            <iframe src="${test.link}" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSettingsTab() {
+                return `
+                    <div class="card">
+                        <h2 style="margin-bottom: 16px;">Change Password</h2>
+                        <form id="changePasswordForm">
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Password</button>
+                        </form>
+                    </div>
+                `;
+            }
+
+            renderClassesTab() {
+                const classes = this.getClasses();
+                return `
+                    <div class="card">
+                        <h2 style="margin-bottom: 16px;">Manage Classes</h2>
+                        <form id="addClassForm" style="margin-bottom: 24px;">
+                            <div class="form-group">
+                                <label for="className">Class Name</label>
+                                <input type="text" id="className" class="form-control" placeholder="e.g., Class 1" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Class</button>
+                        </form>
+                        <h3 style="margin-bottom: 12px;">Existing Classes</h3>
+                        <div id="classList">
+                            ${classes.map(c => `
+                                <div class="list-item">
+                                    <div class="list-item-info">
+                                        <h4>${c.name}</h4>
+                                    </div>
+                                    <button class="btn btn-danger" data-delete-class="${c.id}">Delete</button>
+                                </div>
+                            `).join('')}
+                            ${classes.length === 0 ? '<p>No classes created yet.</p>' : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderSubjectsTab() {
+                const subjects = this.getSubjects();
+                const classes = this.getClasses();
+                
+                return `
+                    <div class="card">
+                        <h2 style="margin-bottom: 16px;">Manage Subjects</h2>
+                        <form id="addSubjectForm" style="margin-bottom: 24px;">
+                            <div class="form-group">
+                                <label for="subjectClass">Class</label>
+                                <select id="subjectClass" class="form-control" required>
+                                    <option value="">Select Class</option>
+                                    ${classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectName">Subject Name</label>
+                                <input type="text" id="subjectName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectDesc">Description</label>
+                                <textarea id="subjectDesc" class="form-control" rows="3"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="subjectIcon">Icon (emoji or text)</label>
+                                <input type="text" id="subjectIcon" class="form-control" placeholder="📚">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Subject</button>
+                        </form>
+                        <h3 style="margin-bottom: 12px;">Existing Subjects</h3>
+                        <div id="subjectList">
+                            ${subjects.map(s => {
+                                const className = classes.find(c => c.id === s.classId)?.name || 'Unknown';
+                                return `
+                                    <div class="list-item">
+                                        <div class="list-item-info">
+                                            <h4>${s.icon} ${s.name}</h4>
+                                            <p>${className} - ${s.description}</p>
+                                        </div>
+                                        <button class="btn btn-danger" data-delete-subject="${s.id}">Delete</button>
+                                    </div>
+                                `;
+                            }).join('')}
+                            ${subjects.length === 0 ? '<p>No subjects created yet.</p>' : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTestsTab() {
+                const tests = this.getTests();
+                const subjects = this.getSubjects();
+                const classes = this.getClasses();
+                
+                return `
+                    <div class="card">
+                        <h2 style="margin-bottom: 16px;">Manage Tests</h2>
+                        <form id="addTestForm" style="margin-bottom: 24px;">
+                            <div class="form-group">
+                                <label for="testSubject">Subject</label>
+                                <select id="testSubject" class="form-control" required>
+                                    <option value="">Select Subject</option>
+                                    ${subjects.map(s => {
+                                        const className = classes.find(c => c.id === s.classId)?.name || '';
+                                        return `<option value="${s.id}">${s.name} (${className})</option>`;
+                                    }).join('')}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="testName">Test Name</label>
+                                <input type="text" id="testName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="testLink">Test Link (URL to HTML file)</label>
+                                <input type="url" id="testLink" class="form-control" placeholder="https://example.com/test.html" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Add Test</button>
+                        </form>
+                        <h3 style="margin-bottom: 12px;">Existing Tests</h3>
+                        <div id="testList">
+                            ${tests.map(t => {
+                                const subject = subjects.find(s => s.id === t.subjectId);
+                                const className = subject ? classes.find(c => c.id === subject.classId)?.name : 'Unknown';
+                                const subjectName = subject?.name || 'Unknown';
+                                return `
+                                    <div class="list-item">
+                                        <div class="list-item-info">
+                                            <h4>${t.name}</h4>
+                                            <p>${subjectName} - ${className}</p>
+                                        </div>
+                                        <button class="btn btn-danger" data-delete-test="${t.id}">Delete</button>
+                                    </div>
+                                `;
+                            }).join('')}
+                            ${tests.length === 0 ? '<p>No tests created yet.</p>' : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderStudentTestsTab() {
+                const tests = this.getTests();
+                const subjects = this.getSubjects();
+                const classes = this.getClasses();
+
+                return `
+                    <div>
+                        <div class="filter-section">
+                            <select id="filterClass" class="form-control" style="flex: 1;">
+                                <option value="">All Classes</option>
+                                ${classes.map(c => `<option value="${c.id}">${c.name}</option>`).join('')}
+                            </select>
+                            <select id="filterSubject" class="form-control" style="flex: 1;">
+                                <option value="">All Subjects</option>
+                                ${subjects.map(s => `<option value="${s.id}">${s.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="test-grid" id="testGrid">
+                            ${this.renderTestCards(tests, subjects, classes)}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderTestCards(tests, subjects, classes, classFilter = '', subjectFilter = '') {
+                let filteredTests = tests;
+
+                if (subjectFilter) {
+                    filteredTests = filteredTests.filter(t => t.subjectId === subjectFilter);
+                } else if (classFilter) {
+                    const classSubjects = subjects.filter(s => s.classId === classFilter);
+                    const subjectIds = classSubjects.map(s => s.id);
+                    filteredTests = filteredTests.filter(t => subjectIds.includes(t.subjectId));
+                }
+
+                if (filteredTests.length === 0) {
+                    return '<p>No tests available.</p>';
+                }
+
+                return filteredTests.map(t => {
+                    const subject = subjects.find(s => s.id === t.subjectId);
+                    const className = subject ? classes.find(c => c.id === subject.classId)?.name : 'Unknown';
+                    const subjectName = subject?.name || 'Unknown';
+                    const icon = subject?.icon || '📝';
+                    
+                    return `
+                        <div class="test-card" data-test-id="${t.id}">
+                            <div style="font-size: 32px; margin-bottom: 8px;">${icon}</div>
+                            <h3>${t.name}</h3>
+                            <p>${subjectName}</p>
+                            <p><span class="badge">${className}</span></p>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            renderStudentResultsTab() {
+                const results = this.getResults().filter(r => r.username === this.currentUser.username);
+                const tests = this.getTests();
+                const subjects = this.getSubjects();
+
+                return `
+                    <div class="card">
+                        <h2 style="margin-bottom: 16px;">My Test Results</h2>
+                        ${results.length === 0 ? '<p>No test results yet.</p>' : `
+                            <table class="results-table">
+                                <thead>
+                                    <tr>
+                                        <th>Test Name</th>
+                                        <th>Subject</th>
+                                        <th>Score</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${results.map(r => {
+                                        const test = tests.find(t => t.id === r.testId);
+                                        const subject = subjects.find(s => s.id === test?.subjectId);
+                                        const date = new Date(r.date).toLocaleDateString();
+                                        return `
+                                            <tr>
+                                                <td>${test?.name || 'Unknown'}</td>
+                                                <td>${subject?.name || 'Unknown'}</td>
+                                                <td>${r.score}/${r.totalQuestions}</td>
+                                                <td>${date}</td>
+                                            </tr>
+                                        `;
+                                    }).join('')}
+                                </tbody>
+                            </table>
+                        `}
+                    </div>
+                `;
+            }
+
+            // Event Handlers
+            attachLoginEvents() {
+                const tabBtns = document.querySelectorAll('.tab-btn');
+                let selectedRole = 'student';
+
+                tabBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        tabBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        selectedRole = btn.dataset.role;
+                    });
+                });
+
+                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const username = document.getElementById('username').value;
+                    const password = document.getElementById('password').value;
+                    const error = document.getElementById('loginError');
+
+                    if (this.login(username, password, selectedRole)) {
+                        error.style.display = 'none';
+                    } else {
+                        error.textContent = 'Invalid username or password';
+                        error.style.display = 'block';
+                    }
+                });
+            }
+
+            attachTeacherEvents() {
+                document.getElementById('logoutBtn').addEventListener('click', () => this.logout());
+
+                const navTabs = document.querySelectorAll('.nav-tab');
+                navTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        navTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        this.loadTeacherTab(tab.dataset.tab);
+                    });
+                });
+
+                this.loadTeacherTab('settings');
+            }
+
+            loadTeacherTab(tabName) {
+                const content = document.getElementById('tabContent');
+                
+                if (tabName === 'settings') {
+                    content.innerHTML = this.renderSettingsTab();
+                    this.attachPasswordChangeEvent();
+                } else if (tabName === 'classes') {
+                    content.innerHTML = this.renderClassesTab();
+                    this.attachClassEvents();
+                } else if (tabName === 'subjects') {
+                    content.innerHTML = this.renderSubjectsTab();
+                    this.attachSubjectEvents();
+                } else if (tabName === 'tests') {
+                    content.innerHTML = this.renderTestsTab();
+                    this.attachTestManagementEvents();
+                }
+            }
+
+            attachPasswordChangeEvent() {
+                document.getElementById('changePasswordForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newPassword = document.getElementById('newPassword').value;
+                    const confirmPassword = document.getElementById('confirmPassword').value;
+
+                    if (newPassword !== confirmPassword) {
+                        alert('Passwords do not match!');
+                        return;
+                    }
+
+                    if (this.updateUserPassword(this.currentUser.username, newPassword)) {
+                        alert('Password updated successfully!');
+                        this.currentUser.password = newPassword;
+                        e.target.reset();
+                    }
+                });
+            }
+
+            attachClassEvents() {
+                document.getElementById('addClassForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const className = document.getElementById('className').value;
+                    this.addClass(className);
+                    this.loadTeacherTab('classes');
+                });
+
+                document.querySelectorAll('[data-delete-class]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (confirm('Delete this class? All subjects and tests will be removed.')) {
+                            this.deleteClass(btn.dataset.deleteClass);
+                            this.loadTeacherTab('classes');
+                        }
+                    });
+                });
+            }
+
+            attachSubjectEvents() {
+                document.getElementById('addSubjectForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const classId = document.getElementById('subjectClass').value;
+                    const name = document.getElementById('subjectName').value;
+                    const description = document.getElementById('subjectDesc').value;
+                    const icon = document.getElementById('subjectIcon').value || '📚';
+                    
+                    this.addSubject(classId, name, description, icon);
+                    this.loadTeacherTab('subjects');
+                });
+
+                document.querySelectorAll('[data-delete-subject]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (confirm('Delete this subject? All tests will be removed.')) {
+                            this.deleteSubject(btn.dataset.deleteSubject);
+                            this.loadTeacherTab('subjects');
+                        }
+                    });
+                });
+            }
+
+            attachTestManagementEvents() {
+                document.getElementById('addTestForm').addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const subjectId = document.getElementById('testSubject').value;
+                    const name = document.getElementById('testName').value;
+                    const link = document.getElementById('testLink').value;
+                    
+                    this.addTest(subjectId, name, link);
+                    this.loadTeacherTab('tests');
+                });
+
+                document.querySelectorAll('[data-delete-test]').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        if (confirm('Delete this test?')) {
+                            this.deleteTest(btn.dataset.deleteTest);
+                            this.loadTeacherTab('tests');
+                        }
+                    });
+                });
+            }
+
+            attachStudentEvents() {
+                document.getElementById('logoutBtn').addEventListener('click', () => this.logout());
+
+                const navTabs = document.querySelectorAll('.nav-tab');
+                navTabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        navTabs.forEach(t => t.classList.remove('active'));
+                        tab.classList.add('active');
+                        this.loadStudentTab(tab.dataset.tab);
+                    });
+                });
+
+                this.loadStudentTab('tests');
+            }
+
+            loadStudentTab(tabName) {
+                const content = document.getElementById('tabContent');
+                
+                if (tabName === 'tests') {
+                    content.innerHTML = this.renderStudentTestsTab();
+                    this.attachStudentTestEvents();
+                } else if (tabName === 'results') {
+                    content.innerHTML = this.renderStudentResultsTab();
+                } else if (tabName === 'settings') {
+                    content.innerHTML = this.renderSettingsTab();
+                    this.attachPasswordChangeEvent();
+                }
+            }
+
+            attachStudentTestEvents() {
+                const filterClass = document.getElementById('filterClass');
+                const filterSubject = document.getElementById('filterSubject');
+                const testGrid = document.getElementById('testGrid');
+
+                const updateTests = () => {
+                    const tests = this.getTests();
+                    const subjects = this.getSubjects();
+                    const classes = this.getClasses();
+                    testGrid.innerHTML = this.renderTestCards(
+                        tests, 
+                        subjects, 
+                        classes, 
+                        filterClass.value, 
+                        filterSubject.value
+                    );
+                    this.attachTestCardEvents();
+                };
+
+                filterClass.addEventListener('change', updateTests);
+                filterSubject.addEventListener('change', updateTests);
+
+                this.attachTestCardEvents();
+            }
+
+            attachTestCardEvents() {
+                document.querySelectorAll('.test-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        this.currentTest = card.dataset.testId;
+                        this.currentView = 'take-test';
+                        this.render();
+                    });
+                });
+            }
+
+            attachTestEvents() {
+                document.getElementById('backBtn').addEventListener('click', () => {
+                    this.currentView = 'student-dashboard';
+                    this.currentTest = null;
+                    this.render();
+                });
+
+                document.getElementById('submitTestBtn').addEventListener('click', () => {
+                    const score = prompt('Enter your score:');
+                    const total = prompt('Enter total questions:');
+                    
+                    if (score !== null && total !== null) {
+                        this.saveResult(this.currentTest, parseInt(score), parseInt(total));
+                        alert('Test result saved!');
+                        this.currentView = 'student-dashboard';
+                        this.currentTest = null;
+                        this.render();
+                    }
+                });
+            }
+        }
+
+        // Initialize the app
+        const lms = new LMS();
+    </script>
+</body>
+</html>
+
